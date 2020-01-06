@@ -2,22 +2,25 @@ var mqtt = require('mqtt');
 var client = mqtt.connect('mqtt://test.mosquitto.org');
 var mysql = require('mysql');
 
-var db_connection = mysql.createConnection({
-    host: "0.0.0.0",
-    username: "admin",
-    password: "admin",
-    database: "my_db"
-});
+var db_config = {
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASS,
+    database: process.env.DATABASE_NAME
+};
 
+var db_connection = mysql.createConnection(db_config);
 db_connection.connect(function (err) {
     if (err) {
-        console.error('error connecting: ' + err.stack);
+        console.error('*** error connecting *** : ' + err.stack);
         return;
     }
-    console.log('connected as id ' + db_connection.threadId);
+
+    console.log('*** SUCCESFULLY connected as id *** : ' + db_connection.threadId);
+
     db_connection.end(function (err) {
         if (err) {
-            return console.log(err.message);
+            return console.log("*** db connection end *** : " + err.message);
         }
     });
 });

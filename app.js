@@ -31,11 +31,11 @@ client.on('connect', function () {
             client.publish('Test topic', 'Hello mqtt message');
         }
     })
-})
+});
 
 client.on('message', function (topic, message) {
     console.log('topic: ' + topic + " message: " + message.toString());
-})
+});
 
 function handleAppExit(options, err) {
     if (err) console.log(err.stack);

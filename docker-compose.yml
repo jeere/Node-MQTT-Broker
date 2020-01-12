@@ -26,7 +26,7 @@ services:
             - ./:/home/node/app
         ports:
             - "8081:80"
-        command: ["./wait-for-it.sh", "db:3306", "--", "npm", "start"]
+        command: ["./wait-for-it.sh", "db:3306", "--", "npm", "install", "--", "npm", "start"]
         networks:
             - nodeapp
         environment:
